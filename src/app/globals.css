@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: var(--font-poppins);
+}
+
+.font-lilitaOne {
+  font-family: var(--font-lilitaOne);
+}
+
+.font-poppins {
+  font-family: var(--font-poppins);
+}
+
+.textGradient {
+  @apply bg-gradient-to-r from-purple via-magenta to-pink inline-block text-transparent bg-clip-text;
+}
