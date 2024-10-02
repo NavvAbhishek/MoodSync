@@ -17,3 +17,7 @@ body {
 .textGradient {
   @apply bg-gradient-to-r from-purple via-magenta to-pink inline-block text-transparent bg-clip-text;
 }
+
+.purpleBtn {
+  @apply rounded-md bg-purple hover:bg-magenta text-yellow hover:text-white px-3.5 py-2.5 text-sm font-semibold  shadow-sm   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple;
+}
