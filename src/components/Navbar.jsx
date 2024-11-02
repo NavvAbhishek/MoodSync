@@ -9,11 +9,12 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: false },
-  { name: "Link2", href: "#", current: false },
-  { name: "Link3", href: "#", current: false },
+  { name: "Link 1", href: "#", current: false },
+  { name: "Link 2", href: "#", current: false },
+  { name: "Link 3", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -65,7 +66,9 @@ const Navbar = () => {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <p>CTA</p>
+            <Link href="/dashboard">
+              <button className="purpleBtn">Login</button>
+            </Link>
           </div>
         </div>
       </div>

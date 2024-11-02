@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React from "react";
+
 
 const HomePage = () => {
   return (
@@ -18,18 +20,18 @@ const HomePage = () => {
       <div className="mx-auto max-w-2xl py-14 sm:py-28">
         <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
         <div className="text-center">
-          <h1 className="text-balance text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Sync Your Emotions, Every Day
+          <h1 className="text-balance text-4xl font-lilitaOne font-bold tracking-tight text-gray-900 sm:text-6xl">
+            Sync Your <span className="textGradient">Emotions</span> Every Day
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Your mood matters. With MoodSync, track your emotional journey day
+          <p className="mt-6 leading-8 text-purple">
+            Your mood matters. With <span className="textGradient font-lilitaOne text-lg">MoodSync</span> track your emotional journey day
             by day, reflect on patterns, and take control of your emotional
             health.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a href="#" className="purpleBtn">
+            <Link href="/dashboard" className="purpleBtn">
               Get started
-            </a>
+            </Link>
             <a
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
