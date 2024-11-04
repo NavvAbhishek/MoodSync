@@ -2,6 +2,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import Login from "../components/Login";
+import Calander from "./Calander";
 
 const Dashboard = () => {
   const { currentUser, userDataObj, setUserDataObj, loading } = useAuth();
@@ -106,6 +107,7 @@ const Dashboard = () => {
           );
         })}
       </div>
+      <Calander data={data} handleSetMood={handleSetMood} />
     </div>
   );
 };
