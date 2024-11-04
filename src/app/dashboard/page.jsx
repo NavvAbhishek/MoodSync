@@ -1,10 +1,10 @@
 import React from "react";
-import Login from "../../components/Login";
+import Dashboard from "../../components/Dashboard";
 
 const page = () => {
   return (
     <div>
-      <Login />
+      <Dashboard />
     </div>
   );
 };
