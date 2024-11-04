@@ -1,5 +1,6 @@
 import { Poppins, Lilita_One } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "../context/AuthContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,9 +22,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${lilitaOne.variable} ${poppins.variable}`}>
-        {children}
-      </body>
+      <AuthProvider>
+        <body className={`${lilitaOne.variable} ${poppins.variable}`}>
+          {children}
+        </body>
+      </AuthProvider>
     </html>
   );
 }

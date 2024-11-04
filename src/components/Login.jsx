@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Button from "./Button";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-    
+  const { register, login } = useAuth();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -22,7 +23,6 @@ const Login = () => {
     try {
       if (isRegister) {
         console.log("Logging a axisting user");
-
         await login(data.email, data.password);
       } else {
         console.log("Registering a new user");
