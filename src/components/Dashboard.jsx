@@ -2,6 +2,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import Login from "../components/Login";
+import Loading from "../components/Loading";
 import Calander from "./Calander";
 
 const Dashboard = () => {
@@ -64,6 +65,11 @@ const Dashboard = () => {
     }
     setData(userDataObj);
   }, [currentUser, userDataObj]);
+
+  if (loading) {
+    return <Loading/>
+  }
+
 
   if (!currentUser) {
     return <Login />;
