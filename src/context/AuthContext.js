@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -48,7 +49,7 @@ export function AuthProvider({ children }) {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         let firebaseData = {};
-        if (docSnap.exist()) {
+        if (docSnap.exists()) {
           console.log("Found User Data");
           firebaseData = docSnap.data();
           console.log(firebaseData);

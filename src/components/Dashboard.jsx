@@ -1,9 +1,11 @@
 "use client"
 import { useAuth } from "../context/AuthContext";
+import { doc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Login from "../components/Login";
 import Loading from "../components/Loading";
 import Calander from "./Calander";
+import { db } from '../firebase';
 
 const Dashboard = () => {
   const { currentUser, userDataObj, setUserDataObj, loading } = useAuth();
@@ -95,7 +97,7 @@ const Dashboard = () => {
         How do you <span className="textGradient">feel</span> today?
       </h4>
       <div className="flex items-stretch flex-wrap gap-4">
-        {Object.keys(moods).map((mood, index) => {
+        {Object.keys(moods).map((mood, moodIndex) => {
           return (
             <button
               onClick={() => {
@@ -105,7 +107,7 @@ const Dashboard = () => {
               className={
                 "flex flex-col items-center px-8 gap-2 bg-[#9333ea] rounded-lg p-5 duration-200 emojiBox flex-1"
               }
-              key={index}
+              key={moodIndex}
             >
               <p className="text-3xl sm:text-4xl md:text-5xl">{moods[mood]}</p>
               <p className="text-white">{mood}</p>
