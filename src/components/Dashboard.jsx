@@ -1,18 +1,41 @@
-"use client"
+"use client";
 import { useAuth } from "../context/AuthContext";
-import { doc, setDoc } from "firebase/firestore";
+import { average, doc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Login from "../components/Login";
 import Loading from "../components/Loading";
 import Calander from "./Calander";
-import { db } from '../firebase';
+import { db } from "../firebase";
 
 const Dashboard = () => {
   const { currentUser, userDataObj, setUserDataObj, loading } = useAuth();
   const [data, setData] = useState({});
+  const now = new Date();
+
+  function countValues() {
+    let total_number_of_days = 0;
+    let sum_moods = 0;
+    for (let year in data) {
+      for (let month in data[year]) {
+        for (let day in data[year][month]) {
+          let days_mood = data[year][month][day];
+          total_number_of_days++;
+          sum_moods += days_mood;
+        }
+      }
+    }
+    return {
+      num_days: total_number_of_days,
+      average_mood: (sum_moods / total_number_of_days).toFixed(2),
+    };
+  }
+
+  const status = {
+    ...countValues(),
+    time_remaining: `${23 - now.getHours()}H ${60 - now.getMinutes()}M`,
+  };
 
   const handleSetMood = async (mood) => {
-    const now = new Date();
     const day = now.getDate();
     const month = now.getMonth();
     const year = now.getFullYear();
@@ -47,18 +70,12 @@ const Dashboard = () => {
     }
   };
 
-  const states = {
-    num_days: 14,
-    time_remaining: "13:14:26",
-    date: new Date().toDateString(),
-  };
-
   const moods = {
     Crying: "😭",
     Sad: "🥲",
-    Existing: "😶",
+    Neutral: "😐",
     Good: "😊",
-    Elated: "😍",
+    Happy: "😄",
   };
 
   useEffect(() => {
@@ -69,9 +86,8 @@ const Dashboard = () => {
   }, [currentUser, userDataObj]);
 
   if (loading) {
-    return <Loading/>
+    return <Loading />;
   }
-
 
   if (!currentUser) {
     return <Login />;
@@ -80,14 +96,14 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col flex-1 gap-4 sm:gap-8 md:gap-12 p-5">
       <div className="grid grid-cols-3 bg-purple text-yellow gap-4 p-4 rounded-lg">
-        {Object.keys(states).map((state, index) => {
+        {Object.keys(status).map((state, index) => {
           return (
             <div key={index} className="p-4 flex flex-col gap-1 sm:gap-2">
-              <p className="uppercase text-xs sm:text-sm ">
+              <p className="capitalize text-sm sm:text-sm ">
                 {state.replaceAll("_", " ")}
               </p>
               <p className="text-base sm:text-lg font-lilitaOne truncate">
-                {states[state]}
+                {status[state]}{status === 'num_days' ? " 🔥" : ""}
               </p>
             </div>
           );
@@ -115,7 +131,7 @@ const Dashboard = () => {
           );
         })}
       </div>
-      <Calander data={data} handleSetMood={handleSetMood} />
+      <Calander completeData={data} handleSetMood={handleSetMood} />
     </div>
   );
 };
