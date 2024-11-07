@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 

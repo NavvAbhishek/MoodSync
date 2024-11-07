@@ -1,6 +1,5 @@
 import Link from "next/link";
 import CallToAction from "./CallToAction";
-import Logout from "./Logout";
 
 const Navbar = () => {
   return (

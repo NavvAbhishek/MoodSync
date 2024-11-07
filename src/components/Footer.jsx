@@ -4,17 +4,19 @@ import React from "react";
 const Footer = () => {
   return (
     <footer>
-      <p className="h-20 text-xl flex items-center justify-center font-lilitaOne">
+      <p className="h-20 text-xl text-center font-lilitaOne">
         Design and develop by
         <span>&nbsp;</span>
-        <Link
-          className="text-purple"
-          href="https://www.linkedin.com/in/navabhishek/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Navindu Abhishek
-        </Link>
+        <span>
+          <Link
+            className="text-purple"
+            href="https://www.linkedin.com/in/navabhishek/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Navindu Abhishek
+          </Link>
+        </span>
         <span>&nbsp;</span>
         with 💙
       </p>

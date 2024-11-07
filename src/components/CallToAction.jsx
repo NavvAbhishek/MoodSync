@@ -25,7 +25,7 @@ const CallToAction = () => {
 
   if (currentUser && pathname === "/dashboard") {
     return (
-      <button className="purpleBtn" clickHandler={logout}>
+      <button className="purpleBtn" onClick={logout}>
         Log Out
       </button>
     );
