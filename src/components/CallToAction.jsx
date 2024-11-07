@@ -1,22 +1,35 @@
 "use client";
 import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
-const CallToAction = () => {
-  const { currentUser } = useAuth();
+import { usePathname } from "next/navigation";
 
-  return (
-    <>
-      {currentUser ? (
-        <Link href="/dashboard">
-          <button className="purpleBtn">Dashboard</button>
-        </Link>
-      ) : (
-        <Link href="/dashboard">
-          <button className="purpleBtn">Login</button>
-        </Link>
-      )}
-    </>
-  );
+const CallToAction = () => {
+  const { logout, currentUser } = useAuth();
+  const pathname = usePathname();
+
+  if (currentUser && pathname === "/") {
+    return (
+      <Link href="/dashboard">
+        <button className="purpleBtn">Dashboard</button>
+      </Link>
+    );
+  }
+
+  if (!currentUser && pathname === "/") {
+    return (
+      <Link href="/dashboard">
+        <button className="purpleBtn">Login</button>
+      </Link>
+    );
+  }
+
+  if (currentUser && pathname === "/dashboard") {
+    return (
+      <button className="purpleBtn" clickHandler={logout}>
+        Log Out
+      </button>
+    );
+  }
 };
 
 export default CallToAction;
