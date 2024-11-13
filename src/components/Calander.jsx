@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { gradients, baseRating, demoData } from "../utils";
+import { IoMdAddCircle } from "react-icons/io";
+import { Popover, Whisper, Button } from "rsuite";
+import PopupBox from "./PopupBox";
 
 const months = {
   January: "Jan",
@@ -27,6 +30,14 @@ const dayList = [
   "Friday",
   "Saturday",
 ];
+
+const PopupBoxPopover = React.forwardRef((props, ref) => (
+  <Popover ref={ref} {...props}>
+    <PopupBox />
+  </Popover>
+));
+
+PopupBoxPopover.displayName = "PopupBoxPopover";
 
 const Calander = (props) => {
   const now = new Date();
@@ -121,13 +132,25 @@ const Calander = (props) => {
                   <div
                     style={{ background: color }}
                     className={
-                      "text-xs sm:text-sm border border-solid p-2 flex items-center gap-2 justify-between rounded-lg " +
+                      "group text-xs sm:text-sm border border-solid p-2 flex items-center gap-2 justify-between rounded-lg cursor-pointer " +
                       (isToday ? " border-indigo-400" : " border-indigo-100") +
                       (color === "white" ? " text-indigo-400" : " text-white")
                     }
                     key={dayOfWeekIndex}
                   >
                     <p>{dayIndex}</p>
+                    <div>
+                      <Whisper
+                        trigger="click"
+                        placement="top"
+                        controlId="calendar-popup"
+                        speaker={<PopupBoxPopover />}
+                      >
+                        <Button appearance="link">
+                          <IoMdAddCircle className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100  transition-opacity duration-200" />
+                        </Button>
+                      </Whisper>
+                    </div>
                   </div>
                 );
               })}

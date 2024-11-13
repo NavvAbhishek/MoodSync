@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "../context/AuthContext";
-import { average, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Login from "../components/Login";
 import Loading from "../components/Loading";
