@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { gradients, baseRating, demoData } from "../utils";
+import { gradients, baseRating } from "../utils";
 import { IoMdAddCircle } from "react-icons/io";
 import { Popover, Whisper, Button } from "rsuite";
 import PopupBox from "./PopupBox";
