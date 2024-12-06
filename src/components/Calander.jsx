@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { gradients, baseRating } from "../utils";
 import { IoMdAddCircle } from "react-icons/io";
-import { Popover, Whisper, Button } from "rsuite";
 import PopupBox from "./PopupBox";
 
 const months = {
@@ -31,14 +30,6 @@ const dayList = [
   "Saturday",
 ];
 
-const PopupBoxPopover = React.forwardRef((props, ref) => (
-  <Popover ref={ref} {...props}>
-    <PopupBox />
-  </Popover>
-));
-
-PopupBoxPopover.displayName = "PopupBoxPopover";
-
 const Calander = (props) => {
   const now = new Date();
   const { demo, completeData, handleSetMood } = props;
@@ -47,6 +38,7 @@ const Calander = (props) => {
     Object.keys(months)[currMonth]
   );
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const numericMonth = monthsArr.indexOf(selectedMonth);
   const data = completeData?.[selectedYear]?.[numericMonth] || {};
@@ -81,6 +73,10 @@ const Calander = (props) => {
 
   const daysToDisplay = firstDayOfMonth + daysInMonth;
   const numRows = Math.floor(daysToDisplay / 7) + (daysToDisplay % 7 ? 1 : 0);
+
+  const handleAddClick = () => {
+    setIsPopupOpen(true);
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -140,16 +136,10 @@ const Calander = (props) => {
                   >
                     <p>{dayIndex}</p>
                     <div>
-                      <Whisper
-                        trigger="click"
-                        placement="top"
-                        controlId="calendar-popup"
-                        speaker={<PopupBoxPopover />}
-                      >
-                        <Button appearance="link">
-                          <IoMdAddCircle className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100  transition-opacity duration-200" />
-                        </Button>
-                      </Whisper>
+                      <IoMdAddCircle
+                        onClick={() => handleAddClick()}
+                        className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100  transition-opacity duration-200"
+                      />
                     </div>
                   </div>
                 );
@@ -158,6 +148,7 @@ const Calander = (props) => {
           );
         })}
       </div>
+      {isPopupOpen && <PopupBox onClose={() => setIsPopupOpen(false)} />}
     </div>
   );
 };

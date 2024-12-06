@@ -21,3 +21,68 @@ body {
 .purpleBtn {
   @apply rounded-md bg-purple hover:bg-magenta text-yellow hover:text-white px-3.5 py-2.5 text-sm font-semibold  shadow-sm   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple;
 }
+
+[id^="popup-"].popup-content  {
+  width: 310px;
+  background-color: #f72585;
+  padding: 0px;
+  border-radius: 8px;
+}
+
+.custom-popup {
+  background-color: #390099; /* pink */
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+}
+
+.custom-popup .close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.custom-popup .header {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.custom-popup .content label {
+  display: block;
+  margin-top: 10px;
+}
+
+.custom-popup .content input,
+.custom-popup .content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  background-color: #3a0ca3; /* blue */
+  color: white;
+  border: 1px solid #800080; /* purple */
+  border-radius: 5px;
+}
+
+.custom-popup .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-popup .actions button {
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  background-color: #ffc000; /* yellow */
+  color: #3a0ca3; /* blue */
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-popup .actions .button:hover {
+  background-color: #ffd700; /* slightly different yellow for hover effect */
+}
