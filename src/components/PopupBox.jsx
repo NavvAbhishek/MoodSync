@@ -3,11 +3,10 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { MdClose } from "react-icons/md";
 
-const PopupBox = ({ onSubmit, onClose }) => {
+const PopupBox = ({ onClose }) => {
   const [note, setNote] = useState("");
 
   const handleSubmit = () => {
-    onSubmit(note);
     setNote(""); // Optionally clear the textarea after submit
   };
 
@@ -21,7 +20,7 @@ const PopupBox = ({ onSubmit, onClose }) => {
           </button>
         </div>
         <textarea
-          className="border-2 border-black rounded-lg p-1"
+          className="border-2 border-black rounded-lg p-1 text-black"
           rows={3}
           cols={30}
           value={note}
