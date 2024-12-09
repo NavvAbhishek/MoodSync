@@ -10,7 +10,10 @@ import { db } from "../firebase";
 const Dashboard = () => {
   const { currentUser, userDataObj, setUserDataObj, loading } = useAuth();
   const [data, setData] = useState({});
+  const [note, setNote] = useState("")
+  const [mood, setMood] = useState("")
   const now = new Date();
+  console.log("dash child note", note)
 
   function countValues() {
     let total_number_of_days = 0;
@@ -35,7 +38,7 @@ const Dashboard = () => {
     time_remaining: `${23 - now.getHours()}H ${60 - now.getMinutes()}M`,
   };
 
-  const handleSetMood = async (mood) => {
+  const handleSetMood = async (mood, note) => {
     const day = now.getDate();
     const month = now.getMonth();
     const year = now.getFullYear();
@@ -47,7 +50,7 @@ const Dashboard = () => {
       if (!newData?.[year]?.[month]) {
         newData[year][month] = {};
       }
-      newData[year][month][day] = mood;
+      newData[year][month][day] = {mood, note};
       // update the current state
       setData(newData);
       // update the global state
@@ -59,7 +62,7 @@ const Dashboard = () => {
         {
           [year]: {
             [month]: {
-              [day]: mood,
+              [day]: {mood, note},
             },
           },
         },
@@ -93,6 +96,11 @@ const Dashboard = () => {
     return <Login />;
   }
 
+  const setNoteFromChild = (note) => {
+    setNote(note)
+    handleSetMood(mood, note);
+  }
+
   return (
     <div className="flex flex-col flex-1 gap-4 sm:gap-8 md:gap-12 p-5">
       <div className="grid grid-cols-3 bg-purple text-yellow gap-4 p-4 rounded-lg">
@@ -118,7 +126,8 @@ const Dashboard = () => {
             <button
               onClick={() => {
                 const currentMoodValue = moodIndex + 1;
-                handleSetMood(currentMoodValue);
+                setMood(currentMoodValue)
+                handleSetMood(mood, note);
               }}
               className={
                 "flex flex-col items-center px-8 gap-2 bg-[#9333ea] rounded-lg p-5 duration-200 emojiBox flex-1"
@@ -131,7 +140,7 @@ const Dashboard = () => {
           );
         })}
       </div>
-      <Calander completeData={data} handleSetMood={handleSetMood} />
+      <Calander completeData={data} handleSetMood={handleSetMood} onSubmiteNote={setNoteFromChild} />
     </div>
   );
 };

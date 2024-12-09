@@ -3,11 +3,13 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { MdClose } from "react-icons/md";
 
-const PopupBox = ({ onClose }) => {
+const PopupBox = ({ onClose,onSubmitNote }) => {
   const [note, setNote] = useState("");
 
   const handleSubmit = () => {
-    setNote(""); // Optionally clear the textarea after submit
+    onSubmitNote(note)
+    setNote("");
+    onClose()
   };
 
   return (

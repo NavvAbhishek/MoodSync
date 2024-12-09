@@ -32,13 +32,14 @@ const dayList = [
 
 const Calander = (props) => {
   const now = new Date();
-  const { demo, completeData, handleSetMood } = props;
+  const { demo, completeData, onSubmiteNote } = props;
   const currMonth = now.getMonth();
   const [selectedMonth, setSelectedMonth] = useState(
     Object.keys(months)[currMonth]
   );
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [note, setNote] = useState("")
 
   const numericMonth = monthsArr.indexOf(selectedMonth);
   const data = completeData?.[selectedYear]?.[numericMonth] || {};
@@ -77,6 +78,11 @@ const Calander = (props) => {
   const handleAddClick = () => {
     setIsPopupOpen(true);
   };
+
+  const setNoteFromChild = (note) => {
+    setNote(note)
+    onSubmiteNote(note)
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -148,7 +154,12 @@ const Calander = (props) => {
           );
         })}
       </div>
-      {isPopupOpen && <PopupBox onClose={() => setIsPopupOpen(false)} />}
+      {isPopupOpen && (
+        <PopupBox
+          onClose={() => setIsPopupOpen(false)}
+          onSubmitNote={setNoteFromChild}
+        />
+      )}
     </div>
   );
 };
