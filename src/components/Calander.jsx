@@ -39,7 +39,7 @@ const Calander = (props) => {
   );
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [note, setNote] = useState("")
+  const [note, setNote] = useState("");
 
   const numericMonth = monthsArr.indexOf(selectedMonth);
   const data = completeData?.[selectedYear]?.[numericMonth] || {};
@@ -80,9 +80,9 @@ const Calander = (props) => {
   };
 
   const setNoteFromChild = (note) => {
-    setNote(note)
-    onSubmiteNote(note)
-  }
+    setNote(note);
+    onSubmiteNote(note);
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -126,8 +126,8 @@ const Calander = (props) => {
 
                 let color = demo
                   ? gradients.indigo[baseRating[dayIndex]]
-                  : dayIndex in data
-                  ? gradients.indigo[data[dayIndex]]
+                  : dayIndex in data && data[dayIndex]?.mood
+                  ? gradients.indigo[data[dayIndex].mood] // Reference mood for color
                   : "white";
 
                 return (
