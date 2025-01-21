@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { gradients, baseRating } from "../utils";
 import { IoMdAddCircle } from "react-icons/io";
+import { MdModeEditOutline } from "react-icons/md";
 import PopupBox from "./PopupBox";
 
 const months = {
@@ -142,10 +143,17 @@ const Calander = (props) => {
                   >
                     <p>{dayIndex}</p>
                     <div>
-                      <IoMdAddCircle
-                        onClick={() => handleAddClick()}
-                        className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100  transition-opacity duration-200"
-                      />
+                      {data[dayIndex]?.note ? (
+                        <MdModeEditOutline
+                          onClick={() => handleAddClick()}
+                          className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        />
+                      ) : (
+                        <IoMdAddCircle
+                          onClick={() => handleAddClick()}
+                          className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        />
+                      )}
                     </div>
                   </div>
                 );
