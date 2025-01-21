@@ -76,8 +76,11 @@ const Calander = (props) => {
   const daysToDisplay = firstDayOfMonth + daysInMonth;
   const numRows = Math.floor(daysToDisplay / 7) + (daysToDisplay % 7 ? 1 : 0);
 
-  const handleAddClick = () => {
+  const handleAddClick = (existingNote) => {
     setIsPopupOpen(true);
+    if(existingNote){
+      setNote(existingNote);
+    }
   };
 
   const setNoteFromChild = (note) => {
@@ -145,7 +148,7 @@ const Calander = (props) => {
                     <div>
                       {data[dayIndex]?.note ? (
                         <MdModeEditOutline
-                          onClick={() => handleAddClick()}
+                          onClick={() => handleAddClick(data[dayIndex].note)}
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       ) : (
@@ -164,8 +167,12 @@ const Calander = (props) => {
       </div>
       {isPopupOpen && (
         <PopupBox
-          onClose={() => setIsPopupOpen(false)}
+          onClose={() => 
+          setIsPopupOpen(false)
+          
+          }
           onSubmitNote={setNoteFromChild}
+          initialNote={note}
         />
       )}
     </div>
