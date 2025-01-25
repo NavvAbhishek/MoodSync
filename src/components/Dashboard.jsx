@@ -131,7 +131,7 @@ const Dashboard = () => {
               onClick={() => {
                 const currentMoodValue = moodIndex + 1;
                 setMood(currentMoodValue);
-                handleSetMood(mood, note);
+                handleSetMood(currentMoodValue, note);
               }}
               className={
                 "flex flex-col items-center px-8 gap-2 bg-[#9333ea] rounded-lg p-5 duration-200 emojiBox flex-1"
