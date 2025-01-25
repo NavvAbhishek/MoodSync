@@ -10,10 +10,10 @@ import { db } from "../firebase";
 const Dashboard = () => {
   const { currentUser, userDataObj, setUserDataObj, loading } = useAuth();
   const [data, setData] = useState({});
-  const [note, setNote] = useState("")
-  const [mood, setMood] = useState("")
+  const [note, setNote] = useState("");
+  const [mood, setMood] = useState("");
   const now = new Date();
-  console.log("dash child note", note)
+  console.log("dash child note", note);
 
   function countValues() {
     let total_number_of_days = 0;
@@ -23,13 +23,16 @@ const Dashboard = () => {
         for (let day in data[year][month]) {
           let days_mood = data[year][month][day];
           total_number_of_days++;
-          sum_moods += days_mood;
+          sum_moods += Number(days_mood.mood);
         }
       }
     }
     return {
       num_days: total_number_of_days,
-      average_mood: (sum_moods / total_number_of_days).toFixed(2),
+      average_mood:
+        total_number_of_days > 0
+          ? (sum_moods / total_number_of_days).toFixed(2)
+          : "N/A",
     };
   }
 
@@ -50,7 +53,7 @@ const Dashboard = () => {
       if (!newData?.[year]?.[month]) {
         newData[year][month] = {};
       }
-      newData[year][month][day] = {mood, note};
+      newData[year][month][day] = { mood, note };
       // update the current state
       setData(newData);
       // update the global state
@@ -62,7 +65,7 @@ const Dashboard = () => {
         {
           [year]: {
             [month]: {
-              [day]: {mood, note},
+              [day]: { mood, note },
             },
           },
         },
@@ -97,9 +100,9 @@ const Dashboard = () => {
   }
 
   const setNoteFromChild = (note) => {
-    setNote(note)
+    setNote(note);
     handleSetMood(mood, note);
-  }
+  };
 
   return (
     <div className="flex flex-col flex-1 gap-4 sm:gap-8 md:gap-12 p-5">
@@ -111,7 +114,8 @@ const Dashboard = () => {
                 {state.replaceAll("_", " ")}
               </p>
               <p className="text-base sm:text-lg font-lilitaOne truncate">
-                {status[state]}{status === 'num_days' ? " 🔥" : ""}
+                {status[state]}
+                {status === "num_days" ? " 🔥" : ""}
               </p>
             </div>
           );
@@ -126,7 +130,7 @@ const Dashboard = () => {
             <button
               onClick={() => {
                 const currentMoodValue = moodIndex + 1;
-                setMood(currentMoodValue)
+                setMood(currentMoodValue);
                 handleSetMood(mood, note);
               }}
               className={
@@ -140,7 +144,11 @@ const Dashboard = () => {
           );
         })}
       </div>
-      <Calander completeData={data} handleSetMood={handleSetMood} onSubmiteNote={setNoteFromChild} />
+      <Calander
+        completeData={data}
+        handleSetMood={handleSetMood}
+        onSubmiteNote={setNoteFromChild}
+      />
     </div>
   );
 };

@@ -20,7 +20,6 @@ const months = {
   December: "Dec",
 };
 const monthsArr = Object.keys(months);
-const now = new Date();
 const dayList = [
   "Sunday",
   "Monday",
