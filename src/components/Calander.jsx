@@ -37,6 +37,11 @@ const Calander = (props) => {
   const [selectedMonth, setSelectedMonth] = useState(
     Object.keys(months)[currMonth]
   );
+  const [selectedDate, setSelectedDate] = useState({
+    day: null,
+    month: null,
+    year: null
+  });
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [note, setNote] = useState("");
@@ -75,8 +80,13 @@ const Calander = (props) => {
   const daysToDisplay = firstDayOfMonth + daysInMonth;
   const numRows = Math.floor(daysToDisplay / 7) + (daysToDisplay % 7 ? 1 : 0);
 
-  const handleAddClick = (existingNote) => {
+  const handleAddClick = (dayIndex, existingNote) => {
     setIsPopupOpen(true);
+    setSelectedDate({
+      day: dayIndex,
+      month: numericMonth,
+      year: selectedYear
+    });
     if(existingNote){
       setNote(existingNote);
     }
@@ -84,7 +94,12 @@ const Calander = (props) => {
 
   const setNoteFromChild = (note) => {
     setNote(note);
-    onSubmiteNote(note);
+    onSubmiteNote(
+      note,
+      selectedDate.day,
+      selectedDate.month,
+      selectedDate.year
+    );
   };
 
   return (
@@ -147,12 +162,12 @@ const Calander = (props) => {
                     <div>
                       {data[dayIndex]?.note ? (
                         <MdModeEditOutline
-                          onClick={() => handleAddClick(data[dayIndex].note)}
+                        onClick={() => handleAddClick(dayIndex, data[dayIndex].note)}
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       ) : (
                         <IoMdAddCircle
-                          onClick={() => handleAddClick()}
+                        onClick={() => handleAddClick(dayIndex)}
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       )}
@@ -166,10 +181,10 @@ const Calander = (props) => {
       </div>
       {isPopupOpen && (
         <PopupBox
-          onClose={() => 
-          setIsPopupOpen(false)
-          
-          }
+        onClose={() => {
+          setIsPopupOpen(false);
+          setSelectedDate({ day: null, month: null, year: null }); // Reset selection
+        }}
           onSubmitNote={setNoteFromChild}
           initialNote={note}
         />

@@ -41,10 +41,10 @@ const Dashboard = () => {
     time_remaining: `${23 - now.getHours()}H ${60 - now.getMinutes()}M`,
   };
 
-  const handleSetMood = async (mood, note) => {
-    const day = now.getDate();
-    const month = now.getMonth();
-    const year = now.getFullYear();
+  const handleSetMood = async (mood, note, dayParam, monthParam, yearParam) => {
+    const day = dayParam || now.getDate();
+    const month = monthParam || now.getMonth();
+    const year = yearParam || now.getFullYear();
     try {
       const newData = { ...userDataObj };
       if (!newData?.[year]) {
@@ -99,9 +99,15 @@ const Dashboard = () => {
     return <Login />;
   }
 
-  const setNoteFromChild = (note) => {
+  const setNoteFromChild = (note, day, month, year) => {
     setNote(note);
-    handleSetMood(mood, note);
+    handleSetMood(
+      data[year]?.[month]?.[day]?.mood || "", // Existing mood
+      note,
+      day,
+      month,
+      year
+    );
   };
 
   return (
