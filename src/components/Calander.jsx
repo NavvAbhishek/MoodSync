@@ -40,7 +40,7 @@ const Calander = (props) => {
   const [selectedDate, setSelectedDate] = useState({
     day: null,
     month: null,
-    year: null
+    year: null,
   });
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -85,21 +85,23 @@ const Calander = (props) => {
     setSelectedDate({
       day: dayIndex,
       month: numericMonth,
-      year: selectedYear
+      year: selectedYear,
     });
-    if(existingNote){
+    if (existingNote) {
       setNote(existingNote);
+    } else {
+      setNote("");
     }
   };
 
   const setNoteFromChild = (note) => {
-    setNote(note);
     onSubmiteNote(
       note,
       selectedDate.day,
       selectedDate.month,
       selectedDate.year
     );
+    setIsPopupOpen(false);
   };
 
   return (
@@ -162,12 +164,14 @@ const Calander = (props) => {
                     <div>
                       {data[dayIndex]?.note ? (
                         <MdModeEditOutline
-                        onClick={() => handleAddClick(dayIndex, data[dayIndex].note)}
+                          onClick={() =>
+                            handleAddClick(dayIndex, data[dayIndex].note)
+                          }
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       ) : (
                         <IoMdAddCircle
-                        onClick={() => handleAddClick(dayIndex)}
+                          onClick={() => handleAddClick(dayIndex)}
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       )}
@@ -181,10 +185,10 @@ const Calander = (props) => {
       </div>
       {isPopupOpen && (
         <PopupBox
-        onClose={() => {
-          setIsPopupOpen(false);
-          setSelectedDate({ day: null, month: null, year: null }); // Reset selection
-        }}
+          onClose={() => {
+            setIsPopupOpen(false);
+            setSelectedDate({ day: null, month: null, year: null }); // Reset selection
+          }}
           onSubmitNote={setNoteFromChild}
           initialNote={note}
         />
