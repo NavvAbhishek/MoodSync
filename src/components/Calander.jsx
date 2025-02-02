@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { gradients, baseRating } from "../utils";
-import { IoMdAddCircle } from "react-icons/io";
-import { MdModeEditOutline } from "react-icons/md";
+import { MdRemoveRedEye,MdAdd } from "react-icons/md";
 import PopupBox from "./PopupBox";
 
 const months = {
@@ -163,14 +162,14 @@ const Calander = (props) => {
                     <p>{dayIndex}</p>
                     <div>
                       {data[dayIndex]?.note ? (
-                        <MdModeEditOutline
+                        <MdRemoveRedEye
                           onClick={() =>
                             handleAddClick(dayIndex, data[dayIndex].note)
                           }
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       ) : (
-                        <IoMdAddCircle
+                        <MdAdd
                           onClick={() => handleAddClick(dayIndex)}
                           className="h-[16px] w-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />

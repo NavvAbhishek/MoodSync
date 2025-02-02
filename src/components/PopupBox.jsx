@@ -22,7 +22,7 @@ const PopupBox = ({ onClose, onSubmitNote, initialNote = "" }) => {
       <div className="modal custom-popup">
         <div className="flex justify-between pb-3">
           <h2 className="text-base font-semibold pb-1 text-yellow">
-            {isEditing ? "Edit note" : "Add note"}
+            {isEditing ? "Your note" : "Add note"}
           </h2>
           <button className="close cursor-pointer" onClick={onClose}>
             <MdClose />
